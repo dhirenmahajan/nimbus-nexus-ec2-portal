@@ -34,6 +34,7 @@ METADATA_FIELDS = {
     "Availability Zone": "placement/availability-zone",
     "Public IPv4": "public-ipv4",
 }
+PASSWORD_HASH_METHOD = os.environ.get("PASSWORD_HASH_METHOD", "pbkdf2:sha256")
 
 
 def create_app() -> Flask:
@@ -171,7 +172,9 @@ def register_routes(app: Flask) -> None:
             user = load_user(username)
 
             if user is None:
-                hashed_password = generate_password_hash(password)
+                hashed_password = generate_password_hash(
+                    password, method=PASSWORD_HASH_METHOD
+                )
                 db.execute(
                     """
                     INSERT INTO users (username, password, last_login)
