@@ -1,6 +1,6 @@
 # Nimbus Nexus: EC2 Onboarding Portal
 
-Nimbus Nexus is a portfolio-ready Flask application that I, **Dhiren Mahajan**, use to demonstrate how I approach building and operating workloads on Amazon EC2. It highlights secure authentication, schema evolution, observability endpoints, and live instance metadata discovery - the same guardrails I rely on in production.
+Nimbus Nexus is a Flask application that I use to demonstrate how I approach building and operating workloads on Amazon EC2. It highlights secure authentication, schema evolution, observability endpoints, and live instance metadata discovery - the same guardrails I rely on in production.
 
 Deploy it to an EC2 instance (or run locally) to experience the full onboarding flow, including cloud-aware dashboards and health checks that plug neatly into monitoring pipelines.
 
