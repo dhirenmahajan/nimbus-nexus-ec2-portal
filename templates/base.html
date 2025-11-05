@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project_name }}{% if title %} | {{ title }}{% endif %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="container top-bar__inner">
+            <div>
+                <a class="brand" href="{{ url_for('login') }}">{{ project_name }}</a>
+                <p class="subtitle">Created by Dhiren Mahajan to showcase real-world EC2 workflows</p>
+            </div>
+            <nav class="nav">
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('health') }}">Health</a>
+                <a href="{{ url_for('about') }}">About</a>
+            </nav>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <section class="flash-messages">
+                <div class="container">
+                    {% for category, message in messages %}
+                        <div class="alert alert--{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+    {% endwith %}
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <small>Crafted for the cloud by Dhiren Mahajan - {{ project_name }}</small>
+            <small>Deploy on EC2, scale with confidence.</small>
+        </div>
+    </footer>
+</body>
+</html>

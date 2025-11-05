@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% set title = "Login" %}
+
+{% block content %}
+<section class="card">
+    <h1>Launchpad Login</h1>
+    <p>
+        This portal gives a tour of how I (Dhiren Mahajan) harden and observe EC2-backed applications.
+        Log in with any credentials; new users will be asked to complete a profile so we can surface
+        tailored AWS insights.
+    </p>
+    <form method="post" action="{{ url_for('login') }}">
+        <div>
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" placeholder="cloud.builder" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" placeholder="********" required>
+        </div>
+        <button class="btn btn--primary" type="submit">Access Console</button>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Why this matters</h2>
+    <div class="two-column">
+        <div>
+            <h3>Production ready patterns</h3>
+            <p>Connection pooling, schema migrations, and observability hooks illustrate how I treat EC2 as a reliable home for stateful workloads.</p>
+        </div>
+        <div>
+            <h3>Cloud awareness</h3>
+            <p>Live instance metadata and health endpoints demonstrate disciplined operations, whether running locally or on AWS.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

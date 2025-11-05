@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% set title = "Complete Profile" %}
+
+{% block content %}
+<section class="card">
+    <h1>Personalize your cloud persona</h1>
+    <p>
+        Hello {{ user["username"] }}! Completing this profile mirrors how I capture operational snapshots
+        when onboarding new workloads into AWS. It also unlocks tailored EC2 metadata on your dashboard.
+    </p>
+    <form method="post">
+        <div class="two-column">
+            <div>
+                <label for="first_name">First Name</label>
+                <input id="first_name" type="text" name="first_name" value="{{ user['first_name'] or '' }}" required>
+            </div>
+            <div>
+                <label for="last_name">Last Name</label>
+                <input id="last_name" type="text" name="last_name" value="{{ user['last_name'] or '' }}" required>
+            </div>
+        </div>
+        <div class="two-column">
+            <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" value="{{ user['email'] or '' }}" required>
+            </div>
+            <div>
+                <label for="job_title">Job Title</label>
+                <input id="job_title" type="text" name="job_title" value="{{ user['job_title'] or '' }}" placeholder="Senior Cloud Engineer">
+            </div>
+        </div>
+        <div class="two-column">
+            <div>
+                <label for="favorite_service">Favorite AWS Service</label>
+                <input id="favorite_service" type="text" name="favorite_service" value="{{ user['favorite_service'] or '' }}" placeholder="Amazon EC2">
+            </div>
+            <div>
+                <label for="region">Home Region</label>
+                <input id="region" type="text" name="region" value="{{ user['region'] or '' }}" placeholder="us-east-1">
+            </div>
+        </div>
+        <div>
+            <label for="bio">Delivery Focus</label>
+            <textarea id="bio" name="bio" placeholder="Describe how you approach building resilient AWS environments">{{ user['bio'] or '' }}</textarea>
+        </div>
+        <button class="btn btn--primary" type="submit">Save Profile</button>
+    </form>
+</section>
+{% endblock %}

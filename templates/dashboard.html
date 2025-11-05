@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% set title = "Dashboard" %}
+
+{% block content %}
+<section class="card">
+    <h1>Welcome back, {{ user['first_name'] or user['username'] }}!</h1>
+    <p>
+        This dashboard mirrors the status views I build for EC2 workloads - distilling environment data,
+        application metadata, and automation hooks into one glanceable surface.
+    </p>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Full Name</td>
+                <td>{{ user['first_name'] }} {{ user['last_name'] }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{ user['email'] or 'Not provided' }}</td>
+            </tr>
+            <tr>
+                <td>Job Title</td>
+                <td>{{ user['job_title'] or 'Open to opportunities' }}</td>
+            </tr>
+            <tr>
+                <td>Favorite AWS Service</td>
+                <td>{{ user['favorite_service'] or 'Amazon EC2 (default)' }}</td>
+            </tr>
+            <tr>
+                <td>Preferred Region</td>
+                <td>{{ user['region'] or 'us-east-2' }}</td>
+            </tr>
+            <tr>
+                <td>Last Login (UTC)</td>
+                <td>{{ user['last_login'] or 'First run' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% if user['bio'] %}
+        <h2>Delivery Focus</h2>
+        <p>{{ user['bio'] }}</p>
+    {% endif %}
+    <p>
+        Need to adjust your info? <a href="{{ url_for('complete_profile', username=user['username']) }}">Update profile</a>.
+    </p>
+</section>
+
+<section class="card">
+    <h2>EC2 Instance Signals</h2>
+    {% if metadata %}
+        {% if metadata.get('error') %}
+            <p>{{ metadata['error'] }}</p>
+        {% else %}
+            <div class="metadata-grid">
+                {% for label, value in metadata.items() %}
+                    <div class="metadata-card">
+                        <h3>{{ label }}</h3>
+                        <span>{{ value }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% else %}
+        <p>Instance metadata is not currently available. When deployed on EC2, this section populates automatically to confirm placement and connectivity.</p>
+    {% endif %}
+</section>
+
+<section class="card">
+    <h2>Artifacts &amp; Automation</h2>
+    {% if limerick.error %}
+        <p>{{ limerick.error }}</p>
+    {% else %}
+        <p>
+            The application ships with a text asset (Limerick.txt) stored on the instance. The word count is {{ limerick.word_count }},
+            demonstrating how file-based resources can be distributed alongside the code.
+        </p>
+        <a class="btn btn--primary" href="{{ url_for('download_limerick') }}">Download Limerick</a>
+    {% endif %}
+    <p>
+        Health endpoint ready? Check <a href="{{ url_for('health') }}">{{ url_for('health', _external=True) }}</a> for automated probes.
+    </p>
+</section>
+{% endblock %}

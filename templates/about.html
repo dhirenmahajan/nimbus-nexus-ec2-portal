@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% set title = "About" %}
+
+{% block content %}
+<section class="card">
+    <h1>Meet the Builder</h1>
+    <p>
+        Hi, I'm Dhiren Mahajan - a cloud engineer who loves translating business goals into resilient AWS solutions.
+        Nimbus Nexus is my narrative-driven EC2 project where I demonstrate how thoughtful infrastructure, secure coding,
+        and observability come together.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Technical Pillars</h2>
+    <div class="two-column">
+        {% for highlight in highlights %}
+            <div>
+                <h3>{{ highlight.title }}</h3>
+                <p>{{ highlight.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="card">
+    <h2>Career Timeline</h2>
+    <ul>
+        {% for year, milestone in timeline %}
+            <li><strong>{{ year }}</strong> - {{ milestone }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section class="card">
+    <h2>How to Explore</h2>
+    <p>
+        Deploy this Flask app on an EC2 instance behind Apache or Nginx with Gunicorn,
+        wire the health endpoint into your monitors, and scale horizontally using user data scripts for automation.
+        It's the same approach I take in production to guarantee reliable rollouts.
+    </p>
+</section>
+{% endblock %}
